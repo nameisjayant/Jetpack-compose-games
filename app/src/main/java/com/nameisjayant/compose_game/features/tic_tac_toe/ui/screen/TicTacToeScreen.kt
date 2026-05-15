@@ -18,11 +18,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,10 +25,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.nameisjayant.compose_game.features.tic_tac_toe.ui.components.TicTacToeBoard
-import com.nameisjayant.compose_game.features.tic_tac_toe.utils.GameState
+import com.nameisjayant.compose_game.features.tic_tac_toe.ui.viewmodel.TicTacToeViewModel
 import com.nameisjayant.compose_game.features.tic_tac_toe.utils.Player
-import com.nameisjayant.compose_game.features.tic_tac_toe.utils.TicTacToeHelpers
 
 private val ScreenBg = Color(0xFF0D0D1A)
 private val BoardCardBg = Color(0xFF1A1A2E)
@@ -44,26 +39,11 @@ private val MutedColor = Color(0xFF6B6B8A)
 private val AccentButton = Color(0xFF6C63FF)
 
 @Composable
-fun TicTacToeScreen(modifier: Modifier = Modifier) {
-    var gameState by remember {
-        mutableStateOf(GameState(TicTacToeHelpers.createEmptyBoard(), Player.X))
-    }
-    var xScore by remember { mutableStateOf(0) }
-    var oScore by remember { mutableStateOf(0) }
-    var drawScore by remember { mutableStateOf(0) }
-    var scoreTracked by remember { mutableStateOf(false) }
-
-    LaunchedEffect(gameState.winner, gameState.isDraw) {
-        if (!scoreTracked && (gameState.winner != null || gameState.isDraw)) {
-            scoreTracked = true
-            when (gameState.winner) {
-                Player.X -> xScore++
-                Player.O -> oScore++
-                null -> drawScore++
-            }
-        }
-    }
-
+fun TicTacToeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: TicTacToeViewModel = viewModel()
+) {
+    val gameState = viewModel.gameState
     val isGameOver = gameState.winner != null || gameState.isDraw
 
     val (statusText, statusColor) = when {
@@ -100,7 +80,7 @@ fun TicTacToeScreen(modifier: Modifier = Modifier) {
         ) {
             PlayerScoreCard(
                 symbol = "X",
-                score = xScore,
+                score = viewModel.xScore,
                 color = XColor,
                 isActive = !isGameOver && gameState.currentPlayer == Player.X
             )
@@ -115,7 +95,7 @@ fun TicTacToeScreen(modifier: Modifier = Modifier) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "$drawScore",
+                    text = "${viewModel.drawScore}",
                     color = Color.White,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
@@ -124,7 +104,7 @@ fun TicTacToeScreen(modifier: Modifier = Modifier) {
 
             PlayerScoreCard(
                 symbol = "O",
-                score = oScore,
+                score = viewModel.oScore,
                 color = OColor,
                 isActive = !isGameOver && gameState.currentPlayer == Player.O
             )
@@ -137,9 +117,7 @@ fun TicTacToeScreen(modifier: Modifier = Modifier) {
                 .background(BoardCardBg, RoundedCornerShape(20.dp))
                 .padding(8.dp)
         ) {
-            TicTacToeBoard(state = gameState) { row, col ->
-                gameState = TicTacToeHelpers.makeMove(gameState, row, col)
-            }
+            TicTacToeBoard(state = gameState, onCellClick = viewModel::makeMove)
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -155,10 +133,7 @@ fun TicTacToeScreen(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(28.dp))
 
         Button(
-            onClick = {
-                gameState = GameState(TicTacToeHelpers.createEmptyBoard(), Player.X)
-                scoreTracked = false
-            },
+            onClick = viewModel::resetGame,
             colors = ButtonDefaults.buttonColors(containerColor = AccentButton),
             shape = RoundedCornerShape(50),
             contentPadding = PaddingValues(horizontal = 40.dp, vertical = 14.dp),
@@ -183,17 +158,16 @@ private fun PlayerScoreCard(
     isActive: Boolean
 ) {
     val bgColor = if (isActive) color.copy(alpha = 0.15f) else ScoreCardBg
-    val cardModifier = Modifier
-        .width(110.dp)
-        .background(bgColor, RoundedCornerShape(16.dp))
-        .then(
-            if (isActive) Modifier.border(2.dp, color, RoundedCornerShape(16.dp))
-            else Modifier
-        )
-        .padding(vertical = 16.dp)
 
     Box(
-        modifier = cardModifier,
+        modifier = Modifier
+            .width(110.dp)
+            .background(bgColor, RoundedCornerShape(16.dp))
+            .then(
+                if (isActive) Modifier.border(2.dp, color, RoundedCornerShape(16.dp))
+                else Modifier
+            )
+            .padding(vertical = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
