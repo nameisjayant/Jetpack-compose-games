@@ -14,32 +14,35 @@ object TicTacToeHelpers {
             }
         }
 
-        val winner = checkWinner(newBoard)
-        val isDraw = winner == null && newBoard.flatten().none { it == null }
+        val winResult = checkWinner(newBoard)
+        val isDraw = winResult == null && newBoard.flatten().none { it == null }
 
         return state.copy(
             board = newBoard,
             currentPlayer = if (state.currentPlayer == Player.X) Player.O else Player.X,
-            winner = winner,
-            isDraw = isDraw
+            winner = winResult?.first,
+            isDraw = isDraw,
+            winningCells = winResult?.second ?: emptyList()
         )
     }
 
-    private fun checkWinner(board: List<List<Player?>>): Player? {
+    private fun checkWinner(board: List<List<Player?>>): Pair<Player, List<Pair<Int, Int>>>? {
         val lines = listOf(
-            // Rows
-            board[0], board[1], board[2],
-            // Columns
-            listOf(board[0][0], board[1][0], board[2][0]),
-            listOf(board[0][1], board[1][1], board[2][1]),
-            listOf(board[0][2], board[1][2], board[2][2]),
-            // Diagonals
-            listOf(board[0][0], board[1][1], board[2][2]),
-            listOf(board[0][2], board[1][1], board[2][0])
+            listOf(0 to 0, 0 to 1, 0 to 2),
+            listOf(1 to 0, 1 to 1, 1 to 2),
+            listOf(2 to 0, 2 to 1, 2 to 2),
+            listOf(0 to 0, 1 to 0, 2 to 0),
+            listOf(0 to 1, 1 to 1, 2 to 1),
+            listOf(0 to 2, 1 to 2, 2 to 2),
+            listOf(0 to 0, 1 to 1, 2 to 2),
+            listOf(0 to 2, 1 to 1, 2 to 0)
         )
 
         return lines.firstOrNull { line ->
-            line.all { it != null && it == line.first() }
-        }?.first()
+            val cells = line.map { (r, c) -> board[r][c] }
+            cells.all { it != null && it == cells.first() }
+        }?.let { line ->
+            Pair(board[line[0].first][line[0].second]!!, line)
+        }
     }
 }
