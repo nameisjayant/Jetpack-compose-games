@@ -31,6 +31,7 @@ import com.nameisjayant.compose_game.ui.theme.DarkBackground
 import com.nameisjayant.compose_game.ui.theme.DarkBorder
 import com.nameisjayant.compose_game.ui.theme.DarkSurface
 import com.nameisjayant.compose_game.ui.theme.MutedText
+import com.nameisjayant.compose_game.ui.theme.SnakeHeadColor
 
 private data class GameItem(
     val title: String,
@@ -43,7 +44,8 @@ private data class GameItem(
 @Composable
 fun GamesListScreen(
     modifier: Modifier = Modifier,
-    onTicTacToeClick: () -> Unit
+    onTicTacToeClick: () -> Unit,
+    onSnakeClick: () -> Unit
 ) {
     val games = listOf(
         GameItem(
@@ -52,6 +54,13 @@ fun GamesListScreen(
             emoji = "✕ ○",
             accentColor = AccentPurple,
             onClick = onTicTacToeClick
+        ),
+        GameItem(
+            title = "Snake",
+            description = "1 player · Arcade",
+            emoji = "🐍",
+            accentColor = SnakeHeadColor,
+            onClick = onSnakeClick
         )
     )
 
