@@ -24,9 +24,8 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import com.nameisjayant.compose_game.features.tic_tac_toe.utils.Player
-
-private val XColor = Color(0xFFFF6B6B)
-private val OColor = Color(0xFF4DD0E1)
+import com.nameisjayant.compose_game.ui.theme.PlayerOColor
+import com.nameisjayant.compose_game.ui.theme.PlayerXColor
 
 @Composable
 fun TicTacToeCell(
@@ -56,8 +55,8 @@ fun TicTacToeCell(
     }
 
     val bgColor = when {
-        isWinningCell && value == Player.X -> XColor.copy(alpha = 0.22f)
-        isWinningCell && value == Player.O -> OColor.copy(alpha = 0.22f)
+        isWinningCell && value == Player.X -> PlayerXColor.copy(alpha = 0.22f)
+        isWinningCell && value == Player.O -> PlayerOColor.copy(alpha = 0.22f)
         else -> Color.Transparent
     }
 
@@ -84,14 +83,14 @@ fun TicTacToeCell(
                 when (value) {
                     Player.X -> {
                         drawLine(
-                            color = XColor,
+                            color = PlayerXColor,
                             start = Offset(padding, padding),
                             end = Offset(size.width - padding, size.height - padding),
                             strokeWidth = strokeWidth,
                             cap = StrokeCap.Round
                         )
                         drawLine(
-                            color = XColor,
+                            color = PlayerXColor,
                             start = Offset(size.width - padding, padding),
                             end = Offset(padding, size.height - padding),
                             strokeWidth = strokeWidth,
@@ -100,7 +99,7 @@ fun TicTacToeCell(
                     }
                     Player.O -> {
                         drawCircle(
-                            color = OColor,
+                            color = PlayerOColor,
                             radius = size.width / 2 - padding,
                             style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
                         )

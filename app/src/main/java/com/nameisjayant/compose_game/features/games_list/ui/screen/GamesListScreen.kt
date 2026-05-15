@@ -26,11 +26,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-private val ScreenBg = Color(0xFF0D0D1A)
-private val CardBg = Color(0xFF1A1A2E)
-private val CardBorder = Color(0xFF2E2E5E)
-private val MutedColor = Color(0xFF6B6B8A)
+import com.nameisjayant.compose_game.ui.theme.AccentPurple
+import com.nameisjayant.compose_game.ui.theme.DarkBackground
+import com.nameisjayant.compose_game.ui.theme.DarkBorder
+import com.nameisjayant.compose_game.ui.theme.DarkSurface
+import com.nameisjayant.compose_game.ui.theme.MutedText
 
 private data class GameItem(
     val title: String,
@@ -50,7 +50,7 @@ fun GamesListScreen(
             title = "Tic Tac Toe",
             description = "2 players · Classic",
             emoji = "✕ ○",
-            accentColor = Color(0xFF6C63FF),
+            accentColor = AccentPurple,
             onClick = onTicTacToeClick
         )
     )
@@ -58,7 +58,7 @@ fun GamesListScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(ScreenBg)
+            .background(DarkBackground)
             .statusBarsPadding()
             .padding(horizontal = 24.dp)
     ) {
@@ -76,7 +76,7 @@ fun GamesListScreen(
 
         Text(
             text = "Choose a game to play",
-            color = MutedColor,
+            color = MutedText,
             fontSize = 14.sp
         )
 
@@ -97,8 +97,8 @@ private fun GameCard(game: GameItem) {
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
-            .background(CardBg)
-            .border(1.dp, CardBorder, RoundedCornerShape(20.dp))
+            .background(DarkSurface)
+            .border(1.dp, DarkBorder, RoundedCornerShape(20.dp))
             .clickable { game.onClick() }
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -130,14 +130,14 @@ private fun GameCard(game: GameItem) {
             Spacer(modifier = Modifier.height(2.dp))
             Text(
                 text = game.description,
-                color = MutedColor,
+                color = MutedText,
                 fontSize = 13.sp
             )
         }
 
         Text(
             text = "›",
-            color = MutedColor,
+            color = MutedText,
             fontSize = 26.sp,
             fontWeight = FontWeight.Light
         )
