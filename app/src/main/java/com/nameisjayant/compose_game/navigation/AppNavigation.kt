@@ -1,5 +1,7 @@
 package com.nameisjayant.compose_game.navigation
 
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -15,16 +17,26 @@ fun AppNavigation(modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = Route.GamesList,
-        modifier = modifier
+        modifier = modifier,
+        enterTransition = { slideInHorizontally(initialOffsetX = { it }) },
+        exitTransition = { slideOutHorizontally(targetOffsetX = { -it }) },
+        popEnterTransition = { slideInHorizontally(initialOffsetX = { -it }) },
+        popExitTransition = { slideOutHorizontally(targetOffsetX = { it }) }
     ) {
         composable<Route.GamesList> {
             GamesListScreen(
-                onTicTacToeClick = { navController.navigate(Route.TicTacToe) }
+                onTicTacToeClick = {
+                    val alreadyInStack = navController.currentBackStack.value
+                        .any { it.destination.route == Route.TicTacToe::class.qualifiedName }
+                    if (!alreadyInStack) {
+                        navController.navigate(Route.TicTacToe)
+                    }
+                }
             )
         }
 
         composable<Route.TicTacToe> {
-            TicTacToeScreen()
+            TicTacToeScreen(onNavigateBack = { navController.navigateUp() })
         }
     }
 }

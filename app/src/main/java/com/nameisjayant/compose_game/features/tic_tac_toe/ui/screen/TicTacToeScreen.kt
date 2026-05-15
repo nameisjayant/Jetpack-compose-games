@@ -2,9 +2,11 @@ package com.nameisjayant.compose_game.features.tic_tac_toe.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -43,6 +45,7 @@ private val AccentButton = Color(0xFF6C63FF)
 @Composable
 fun TicTacToeScreen(
     modifier: Modifier = Modifier,
+    onNavigateBack: () -> Unit = {},
     viewModel: TicTacToeViewModel = viewModel()
 ) {
     val gameState = viewModel.gameState
@@ -72,13 +75,27 @@ fun TicTacToeScreen(
     ) {
         Spacer(modifier = Modifier.height(52.dp))
 
-        Text(
-            text = "TIC TAC TOE",
-            color = Color.White,
-            fontSize = 26.sp,
-            fontWeight = FontWeight.ExtraBold,
-            letterSpacing = 4.sp
-        )
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Box(
+                modifier = Modifier
+                    .align(Alignment.CenterStart)
+                    .size(40.dp)
+                    .background(ScoreCardBg, RoundedCornerShape(12.dp))
+                    .clickable { onNavigateBack() },
+                contentAlignment = Alignment.Center
+            ) {
+                Text(text = "←", color = Color.White, fontSize = 20.sp)
+            }
+
+            Text(
+                text = "TIC TAC TOE",
+                color = Color.White,
+                fontSize = 26.sp,
+                fontWeight = FontWeight.ExtraBold,
+                letterSpacing = 4.sp,
+                modifier = Modifier.align(Alignment.Center)
+            )
+        }
 
         Spacer(modifier = Modifier.height(36.dp))
 
