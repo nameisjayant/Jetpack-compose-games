@@ -12,4 +12,7 @@ sealed interface Route {
 
     @Serializable
     data object Snake : Route
+
+    @Serializable
+    data object FlappyBird : Route
 }

@@ -27,3 +27,6 @@ val DrawAmber = Color(0xFFFFC107)
 // Snake
 val SnakeHeadColor = Color(0xFF4ADE80)
 val SnakeBodyColor = Color(0xFF22C55E)
+
+// Flappy Bird
+val FlappyBirdColor = Color(0xFFFBBF24)

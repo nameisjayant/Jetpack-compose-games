@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nameisjayant.compose_game.features.games_list.ui.screen.GamesListScreen
+import com.nameisjayant.compose_game.features.flappy_bird.ui.screen.FlappyBirdScreen
 import com.nameisjayant.compose_game.features.snake.ui.screen.SnakeScreen
 import com.nameisjayant.compose_game.features.tic_tac_toe.ui.screen.TicTacToeScreen
 
@@ -29,16 +30,17 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                 onTicTacToeClick = {
                     val alreadyInStack = navController.currentBackStack.value
                         .any { it.destination.route == Route.TicTacToe::class.qualifiedName }
-                    if (!alreadyInStack) {
-                        navController.navigate(Route.TicTacToe)
-                    }
+                    if (!alreadyInStack) navController.navigate(Route.TicTacToe)
                 },
                 onSnakeClick = {
                     val alreadyInStack = navController.currentBackStack.value
                         .any { it.destination.route == Route.Snake::class.qualifiedName }
-                    if (!alreadyInStack) {
-                        navController.navigate(Route.Snake)
-                    }
+                    if (!alreadyInStack) navController.navigate(Route.Snake)
+                },
+                onFlappyBirdClick = {
+                    val alreadyInStack = navController.currentBackStack.value
+                        .any { it.destination.route == Route.FlappyBird::class.qualifiedName }
+                    if (!alreadyInStack) navController.navigate(Route.FlappyBird)
                 }
             )
         }
@@ -49,6 +51,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
         composable<Route.Snake> {
             SnakeScreen(onNavigateBack = { navController.navigateUp() })
+        }
+
+        composable<Route.FlappyBird> {
+            FlappyBirdScreen(onNavigateBack = { navController.navigateUp() })
         }
     }
 }
