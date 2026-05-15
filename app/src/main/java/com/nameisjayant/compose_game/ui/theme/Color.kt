@@ -23,3 +23,7 @@ val AccentPurple = Color(0xFF6C63FF)
 val PlayerXColor = Color(0xFFFF6B6B)
 val PlayerOColor = Color(0xFF4DD0E1)
 val DrawAmber = Color(0xFFFFC107)
+
+// Snake
+val SnakeHeadColor = Color(0xFF4ADE80)
+val SnakeBodyColor = Color(0xFF22C55E)

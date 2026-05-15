@@ -9,4 +9,7 @@ sealed interface Route {
 
     @Serializable
     data object TicTacToe : Route
+
+    @Serializable
+    data object Snake : Route
 }
