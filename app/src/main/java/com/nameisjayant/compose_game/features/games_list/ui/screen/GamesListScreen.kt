@@ -31,6 +31,7 @@ import com.nameisjayant.compose_game.ui.theme.DarkBackground
 import com.nameisjayant.compose_game.ui.theme.DarkBorder
 import com.nameisjayant.compose_game.ui.theme.DarkSurface
 import com.nameisjayant.compose_game.ui.theme.MutedText
+import com.nameisjayant.compose_game.ui.theme.FlappyBirdColor
 import com.nameisjayant.compose_game.ui.theme.SnakeHeadColor
 
 private data class GameItem(
@@ -45,7 +46,8 @@ private data class GameItem(
 fun GamesListScreen(
     modifier: Modifier = Modifier,
     onTicTacToeClick: () -> Unit,
-    onSnakeClick: () -> Unit
+    onSnakeClick: () -> Unit,
+    onFlappyBirdClick: () -> Unit
 ) {
     val games = listOf(
         GameItem(
@@ -61,6 +63,13 @@ fun GamesListScreen(
             emoji = "🐍",
             accentColor = SnakeHeadColor,
             onClick = onSnakeClick
+        ),
+        GameItem(
+            title = "Flappy Bird",
+            description = "1 player · Tap to fly",
+            emoji = "🐦",
+            accentColor = FlappyBirdColor,
+            onClick = onFlappyBirdClick
         )
     )
 
