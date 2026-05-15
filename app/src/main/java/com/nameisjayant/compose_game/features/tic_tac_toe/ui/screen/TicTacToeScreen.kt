@@ -18,7 +18,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -45,6 +47,13 @@ fun TicTacToeScreen(
 ) {
     val gameState = viewModel.gameState
     val isGameOver = gameState.winner != null || gameState.isDraw
+
+    LaunchedEffect(isGameOver) {
+        if (isGameOver) {
+            delay(2000)
+            viewModel.resetGame()
+        }
+    }
 
     val (statusText, statusColor) = when {
         gameState.winner == Player.X -> "Player X Wins!" to XColor
