@@ -62,6 +62,26 @@ A collection of classic arcade games built entirely with **Jetpack Compose** —
 
 ---
 
+### 🧱 Brick Breaker
+
+> Smash every brick — 3 lives, 6 rows, no mercy.
+
+| Gameplay |
+|:---:|
+| ![Brick Breaker](assets/brick-breaker.gif) |
+
+**Features**
+- 8×6 brick grid with 6 row colours (red → orange → yellow → green → blue → purple)
+- Glass highlight and glow shadow drawn on every brick via Canvas
+- Ball physics: per-face reflection (top/bottom vs left/right) using nearest-point circle–rect collision
+- Paddle angle control — hit position adjusts the ball's outgoing angle
+- Paddle follows finger instantly with zero drag threshold (`awaitPointerEventScope`)
+- 3 lives shown as ♥ hearts; ball resets on each life lost
+- Score weighted by row — top bricks worth more; win state when all bricks cleared
+- Red danger-zone gradient near the bottom as a visual warning
+
+---
+
 ## 🏠 Home Screen
 
 A game-list home screen greets you on launch. Tap any card to slide into that game.
@@ -102,11 +122,16 @@ features/
 │   ├── ui/viewmodel/   # SnakeViewModel
 │   ├── ui/components/  # SnakeBoard, DirectionControls, ScoreHeader
 │   └── ui/screen/      # SnakeScreen
-└── flappy_bird/
-    ├── utils/          # FlappyBirdGameState, FlappyBirdPipe
-    ├── ui/viewmodel/   # FlappyBirdViewModel
-    ├── ui/components/  # FlappyBirdCanvas
-    └── ui/screen/      # FlappyBirdScreen
+├── flappy_bird/
+│   ├── utils/          # FlappyBirdGameState, FlappyBirdPipe
+│   ├── ui/viewmodel/   # FlappyBirdViewModel
+│   ├── ui/components/  # FlappyBirdCanvas
+│   └── ui/screen/      # FlappyBirdScreen
+└── brick_breaker/
+    ├── utils/          # BrickBreakerGameState, Brick
+    ├── ui/viewmodel/   # BrickBreakerViewModel
+    ├── ui/components/  # BrickBreakerCanvas
+    └── ui/screen/      # BrickBreakerScreen
 navigation/
 ├── Route.kt            # Sealed interface with @Serializable routes
 └── AppNavigation.kt    # NavHost + slide transitions
