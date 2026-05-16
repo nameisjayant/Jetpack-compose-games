@@ -19,8 +19,7 @@ A collection of classic arcade games built entirely with **Jetpack Compose** —
 
 | Gameplay |
 |:---:|
-| *<!-- Replace this line with: ![Tic Tac Toe](assets/tictactoe.gif) -->* |
-| `📸 Add your GIF here — see Recording Guide below` |
+| <video src="assets/tic-tac-toe.webm" width="320" autoplay loop muted playsinline></video> |
 
 **Features**
 - Canvas-drawn X and O symbols with bounce-in animation on placement
