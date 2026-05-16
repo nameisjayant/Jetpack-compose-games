@@ -35,8 +35,7 @@ A collection of classic arcade games built entirely with **Jetpack Compose** —
 
 | Gameplay |
 |:---:|
-| *<!-- Replace this line with: ![Snake](assets/snake.gif) -->* |
-| `📸 Add your GIF here — see Recording Guide below` |
+| ![Snake](assets/snake.gif) |
 
 **Features**
 - Smooth 20×20 grid with a 60 fps coroutine game loop
@@ -52,8 +51,7 @@ A collection of classic arcade games built entirely with **Jetpack Compose** —
 
 | Gameplay |
 |:---:|
-| *<!-- Replace this line with: ![Flappy Bird](assets/flappybird.gif) -->* |
-| `📸 Add your GIF here — see Recording Guide below` |
+| ![Flappy Bird](assets/flappy-bird.gif) |
 
 **Features**
 - Realistic gravity + velocity physics with terminal fall speed
