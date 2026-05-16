@@ -15,4 +15,7 @@ sealed interface Route {
 
     @Serializable
     data object FlappyBird : Route
+
+    @Serializable
+    data object BrickBreaker : Route
 }

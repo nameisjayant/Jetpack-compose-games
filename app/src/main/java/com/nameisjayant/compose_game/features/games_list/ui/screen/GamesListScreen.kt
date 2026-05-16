@@ -32,6 +32,7 @@ import com.nameisjayant.compose_game.ui.theme.DarkBorder
 import com.nameisjayant.compose_game.ui.theme.DarkSurface
 import com.nameisjayant.compose_game.ui.theme.MutedText
 import com.nameisjayant.compose_game.ui.theme.FlappyBirdColor
+import com.nameisjayant.compose_game.ui.theme.PlayerXColor
 import com.nameisjayant.compose_game.ui.theme.SnakeHeadColor
 
 private data class GameItem(
@@ -47,7 +48,8 @@ fun GamesListScreen(
     modifier: Modifier = Modifier,
     onTicTacToeClick: () -> Unit,
     onSnakeClick: () -> Unit,
-    onFlappyBirdClick: () -> Unit
+    onFlappyBirdClick: () -> Unit,
+    onBrickBreakerClick: () -> Unit
 ) {
     val games = listOf(
         GameItem(
@@ -70,6 +72,13 @@ fun GamesListScreen(
             emoji = "🐦",
             accentColor = FlappyBirdColor,
             onClick = onFlappyBirdClick
+        ),
+        GameItem(
+            title = "Brick Breaker",
+            description = "1 player · Break them all",
+            emoji = "🧱",
+            accentColor = PlayerXColor,
+            onClick = onBrickBreakerClick
         )
     )
 

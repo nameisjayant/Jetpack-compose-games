@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.nameisjayant.compose_game.features.games_list.ui.screen.GamesListScreen
+import com.nameisjayant.compose_game.features.brick_breaker.ui.screen.BrickBreakerScreen
 import com.nameisjayant.compose_game.features.flappy_bird.ui.screen.FlappyBirdScreen
 import com.nameisjayant.compose_game.features.snake.ui.screen.SnakeScreen
 import com.nameisjayant.compose_game.features.tic_tac_toe.ui.screen.TicTacToeScreen
@@ -41,6 +42,11 @@ fun AppNavigation(modifier: Modifier = Modifier) {
                     val alreadyInStack = navController.currentBackStack.value
                         .any { it.destination.route == Route.FlappyBird::class.qualifiedName }
                     if (!alreadyInStack) navController.navigate(Route.FlappyBird)
+                },
+                onBrickBreakerClick = {
+                    val alreadyInStack = navController.currentBackStack.value
+                        .any { it.destination.route == Route.BrickBreaker::class.qualifiedName }
+                    if (!alreadyInStack) navController.navigate(Route.BrickBreaker)
                 }
             )
         }
@@ -55,6 +61,10 @@ fun AppNavigation(modifier: Modifier = Modifier) {
 
         composable<Route.FlappyBird> {
             FlappyBirdScreen(onNavigateBack = { navController.navigateUp() })
+        }
+
+        composable<Route.BrickBreaker> {
+            BrickBreakerScreen(onNavigateBack = { navController.navigateUp() })
         }
     }
 }
